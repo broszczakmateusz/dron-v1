@@ -10,11 +10,11 @@
 
 class MObrotu : public SMacierz <double,  ROZMIAR>{
 
-double KatObrotu;
+double KatObrotu = 0;
 
 public:
-    MObrotu() {SMacierz(), KatObrotu = 0;};
-    explicit MObrotu(double kat) {SMacierz(), KatObrotu = kat;};
+
+    MObrotu(SMacierz<double, ROZMIAR> MacObrotu);
 
     static SMacierz<double, ROZMIAR> Macierz_ObrotX(double kat);
     static SMacierz<double, ROZMIAR> Macierz_ObrotY(double kat);

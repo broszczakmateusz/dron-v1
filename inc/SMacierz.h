@@ -19,8 +19,6 @@ class SMacierz {
 protected:
     SWektor<TYP,ROZMIAR> tab[Rozmiar];
 
-
-
 public:
 
     SMacierz();
@@ -35,6 +33,7 @@ public:
     SMacierz<TYP,Rozmiar> skopiuj() const;
     SMacierz<TYP,Rozmiar>  transpozycja();
     SWektor<TYP,Rozmiar>  operator * (const SWektor<TYP,Rozmiar> & W) const;
+
     double wyznacznik() const;
 };
 

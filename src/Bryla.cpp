@@ -4,27 +4,11 @@
 
 #include "Bryla.h"
 
-Bryla Bryla::Bryla_ObrocX(double kat) {
-    Bryla Wynikowa;
-    for(int i=0; i < Wierzcholki.size(); i++)
-         Wynikowa.Wierzcholki[i] = MObrotu::Macierz_ObrotX(kat) * Wierzcholki[i];
-
-    return Wynikowa;
+void Bryla::Obroc() {
+    SWektor<double, ROZMIAR> Nsrodek;
+    Nsrodek = MObrotu::Macierz_ObrotZ(orientacja) * srodek;
 }
 
-Bryla Bryla::Bryla_ObrocY(double kat) {
-    Bryla Wynikowa;
-    for(int i=0; i < Wierzcholki.size(); i++)
-        Wynikowa.Wierzcholki[i] = MObrotu::Macierz_ObrotY(kat) * Wierzcholki[i];
-
-    return Wynikowa;
+void Bryla::Przesun(const SWektor<double, 3> &Przesun) {
+    srodek = srodek + Przesun;
 }
-
-Bryla Bryla::Bryla_ObrocZ(double kat) {
-    Bryla Wynikowa;
-    for(int i=0; i < Wierzcholki.size(); i++)
-        Wynikowa.Wierzcholki[i] = MObrotu::Macierz_ObrotZ(kat) * Wierzcholki[i];
-
-    return Wynikowa;
-}
-

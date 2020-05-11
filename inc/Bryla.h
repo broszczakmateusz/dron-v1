@@ -6,15 +6,40 @@
 #define DRON_V1_BRYLA_H
 
 #include <vector>
+#include <memory>
 #include "SMacierz.h"
 #include "MObrotu.h"
+#include "Draw3D_api_interface.hh"
+/*!
+ * \brief Definiuje klasę bryły w przestrzeni 3D.
+ */
+class Bryla : public drawNS::Draw3DAPI{
 
-class Bryla {
-    std::vector<SWektor<double,ROZMIAR>> Wierzcholki;
+public:
+    /*!
+    * \brief Punkt o współrzędnych x, y, z, środek bryły.
+    */
+    SWektor<double,ROZMIAR> srodek;
+    /*!
+    * \brief Kąt opisujacy obrót bryLy względem osi OZ.
+    */
+    double orientacja;
+    /*!
+    * \brief Wskaźnik na api do Gnuplota.
+    */
+    std::shared_ptr<drawNS::Draw3DAPI> ptr_na_api;
 
-    Bryla Bryla_ObrocX(double kat);
-    Bryla Bryla_ObrocY(double kat);
-    Bryla Bryla_ObrocZ(double kat);
+protected:
+    /*!
+    * \brief Obraca bryłę.
+    */
+    void Obroc();
+    /*!
+    * \brief Przesuwa śrdodek bryły o dany wektor.
+     * \param Przesun - wektor przesunięcia.
+    */
+    void Przesun(const SWektor<double,ROZMIAR> &Przesun);
+    // Bryla_rysuj();
 };
 
 

@@ -116,6 +116,8 @@ double SMacierz<TYP, Rozmiar>::wyznacznik() const {
 
 
 
+
+
 /*****************************************************************/
 /* Operatory << >>*/
 template <class TYP, int Rozmiar>

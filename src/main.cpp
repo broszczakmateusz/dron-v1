@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Dr3D_gnuplot_api.hh"
 #include "Bryla.h"
+#include "Dron.h"
 
 using std::vector;
 using drawNS::Point3D;
@@ -19,11 +20,13 @@ void wait4key() {
 
 int main() {
 
-   std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-100,100,-100,100,-100,100,1000)); //włacza gnuplota, pojawia się scena [-5,5] x [-5,5] x [-5,5] odświeżana co 1000 ms
-    //drawNS::Draw3DAPI * api = new APIGnuPlot3D(-5,5,-5,5,-5,5,1000); //alternatywnie zwykły wskaźnik
-    api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
+    //Dron Submarine;
 
-    int dron =   api->draw_polyhedron(vector<vector<Point3D> > {{
+   std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-100,100,-100,100,-100,100,1000)); //włacza gnuplota, pojawia się scena [-5,5] x [-5,5] x [-5,5] odświeżana co 1000 ms
+
+  //  api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
+
+  api->draw_polyhedron(vector<vector<Point3D> > {{
        drawNS::Point3D(0,0,0), drawNS::Point3D(0,20,0), drawNS::Point3D(40,20,0), drawNS::Point3D(40,0,0)
     },{
        drawNS::Point3D(0,0,10), drawNS::Point3D(0,20,10), drawNS::Point3D(40,20,10), drawNS::Point3D(40,0,10)
