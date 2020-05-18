@@ -4,7 +4,10 @@
 #include "rozmiar.h"
 #include <iostream>
 #include <cmath>
+#include "Dr3D_gnuplot_api.hh"
 
+using drawNS::Point3D;
+using drawNS::APIGnuPlot3D;
 
 /*
  *  Klasa modeluje pojecie szabloonu wektora o wymiarze ROZMIAR;
@@ -29,6 +32,7 @@ public:
     SWektor<TYP, Rozmiar>  operator * (TYP liczba) const;
     SWektor<TYP, Rozmiar>  operator / (TYP liczba) ;
 
+    operator drawNS::Point3D(){ return drawNS::Point3D(dane[0],dane[1], dane[2]);}
 
 };
 /* Wczytuje tablice wartowsci double lub liczb zespolonych, tworzy z nich wektor.*/

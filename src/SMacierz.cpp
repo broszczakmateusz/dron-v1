@@ -114,6 +114,24 @@ double SMacierz<TYP, Rozmiar>::wyznacznik() const {
     return det;
 }
 
+template<class TYP, int Rozmiar>
+
+SMacierz<TYP, Rozmiar> SMacierz<TYP, Rozmiar>::operator*(const SMacierz<TYP,Rozmiar> &M) {
+    SMacierz<TYP, Rozmiar> Wynikowa;
+    SMacierz<TYP, ROZMIAR> Tmp;
+    Tmp = M.skopiuj();
+    Tmp.transpozycja();
+
+    for (int i=0; i<ROZMIAR; i++) {
+        for(int k=0; k<ROZMIAR; k++) {
+            for(int j=0; j<ROZMIAR; j++){
+                Wynikowa[i][k] =  Wynikowa[i][k] + tab[i][j] * Tmp[k][j];
+            }
+        }
+    }
+    return Wynikowa;
+}
+
 
 
 

@@ -10,15 +10,11 @@
 
 class MObrotu : public SMacierz <double,  ROZMIAR>{
 
-double KatObrotu = 0;
-
 public:
-
+    MObrotu(SWektor<double,ROZMIAR> W1, SWektor<double,ROZMIAR> W2, SWektor<double,ROZMIAR> W3) : SMacierz(W1, W2, W3){};
+    MObrotu();
+    MObrotu(char os, double kat);
     MObrotu(SMacierz<double, ROZMIAR> MacObrotu);
-
-    static SMacierz<double, ROZMIAR> Macierz_ObrotX(double kat);
-    static SMacierz<double, ROZMIAR> Macierz_ObrotY(double kat);
-    static SMacierz<double, ROZMIAR> Macierz_ObrotZ(double kat);
 
 };
 

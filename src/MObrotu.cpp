@@ -4,43 +4,79 @@
 
 #include "MObrotu.h"
 
-MObrotu::MObrotu(SMacierz<double, 3> MacObrotu) {
+MObrotu::MObrotu() {
+    for (int i = 0; i < ROZMIAR; i++) {
+        tab[i] = SWektor<double, ROZMIAR>();
+    }
 
-    int tmp = 0;
-    if (std::abs(MacObrotu.wyznacznik()) == 1){
-        for (int i = 0; i < ROZMIAR; i++) {
-            tmp = tab[i] * MacObrotu.transpozycja()[i];
-        }
-/*        if (tmp == 0) tab = MacObrotu.skopiuj();
-         else std::cerr << "To nie jest macierz obrotu.";*/
+    for (int i = 0; i < ROZMIAR; i++) {
+        tab[i][i]=1;
     }
 }
 
-SMacierz<double, ROZMIAR> MObrotu::Macierz_ObrotX(double kat) {
-    SWektor <double,ROZMIAR>  W1(1,0,0);
-    SWektor <double,ROZMIAR>  W2(0,cos(kat),-sin(kat));
-    SWektor <double,ROZMIAR>  W3(0,sin(kat),cos(kat));
 
-    return SMacierz<double, 3>(W1, W2, W3);
+MObrotu::MObrotu(SMacierz<double, 3> MacObrotu) {
+
+    double blad_obl = 0.0001;
+    double tmp = 0;
+    if ((std::abs(MacObrotu.wyznacznik()) -1 ) < blad_obl){
+        for (int i = 0; i < ROZMIAR-1; i++) {
+            for (int j = i+1; j<ROZMIAR; j++){
+                tmp = MacObrotu[i] * MacObrotu[j];
+            }
+        }
+        if (tmp < blad_obl){
+            for (int i = 0; i < ROZMIAR; i++) {
+                MObrotu::tab[i] = MacObrotu[i];
+                }
+
+        } else {
+            std::cerr << "2 Blad. To nie jest macierz obrotu.";
+            exit(1);
+        }
+    } else {
+        std::cerr << "1 Blad. To nie jest macierz obrotu.";
+        exit(1);
+    }
 }
 
-SMacierz<double, ROZMIAR> MObrotu::Macierz_ObrotY(double kat) {
+MObrotu::MObrotu(char os, double kat) {
+    switch(os) {
+        case 'x' : {
+            SWektor<double, ROZMIAR> W1(1, 0, 0);
+            SWektor<double, ROZMIAR> W2(0, cos(kat), -sin(kat));
+            SWektor<double, ROZMIAR> W3(0, sin(kat), cos(kat));
+            tab[0] = W1;
+            tab[1] = W2;
+            tab[2] = W3;
 
-    SWektor <double,ROZMIAR>  W1(cos(kat),0,sin(kat));
-    SWektor <double,ROZMIAR>  W2(0,1,0);
-    SWektor <double,ROZMIAR>  W3(-sin(kat),0,cos(kat));
+            break;
+        }
+        case 'y' : {
+            SWektor <double,ROZMIAR>  W1(cos(kat),0,sin(kat));
+            SWektor <double,ROZMIAR>  W2(0,1,0);
+            SWektor <double,ROZMIAR>  W3(-sin(kat),0,cos(kat));
+            tab[0] = W1;
+            tab[1] = W2;
+            tab[2] = W3;
+            break;
+        }
+        case 'z' : {
+            SWektor<double, ROZMIAR> W1(cos(kat), -sin(kat), 0);
+            SWektor<double, ROZMIAR> W2(sin(kat), cos(kat), 0);
+            SWektor<double, ROZMIAR> W3(0, 0, 1);
+            tab[0] = W1;
+            tab[1] = W2;
+            tab[2] = W3;
+            break;
+        }
+        default:
+            std::cerr << "Blad. Konstrukcja macierzy obrotu nie powiedla sie" ;
+            exit(1);
+    }
 
-    return SMacierz<double, 3>(W1, W2, W3);
 }
 
-SMacierz<double, ROZMIAR> MObrotu::Macierz_ObrotZ(double kat) {
-
-    SWektor <double,ROZMIAR>  W1(cos(kat),-sin(kat),0);
-    SWektor <double,ROZMIAR>  W2(cos(kat),sin(kat),0);
-    SWektor <double,ROZMIAR>  W3(0,0,1);
-
-    return SMacierz<double, 3>(W1, W2, W3);
-}
 
 
 

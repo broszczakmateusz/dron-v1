@@ -1,4 +1,4 @@
-#ifndef DRON_V1_DRON_H
+/*#ifndef DRON_V1_DRON_H
 #define DRON_V1_DRON_H
 
 #include <vector>
@@ -13,4 +13,4 @@ class Dron : public Prostopadloscian {
 };
 
 
-#endif //DRON_V1_DRON_H
+#endif //DRON_V1_DRON_H*/

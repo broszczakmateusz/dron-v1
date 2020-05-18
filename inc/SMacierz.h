@@ -33,7 +33,7 @@ public:
     SMacierz<TYP,Rozmiar> skopiuj() const;
     SMacierz<TYP,Rozmiar>  transpozycja();
     SWektor<TYP,Rozmiar>  operator * (const SWektor<TYP,Rozmiar> & W) const;
-
+    SMacierz<TYP,Rozmiar> operator * (const SMacierz<TYP,Rozmiar> & M);
     double wyznacznik() const;
 };
 

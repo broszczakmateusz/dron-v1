@@ -7,39 +7,61 @@
 
 #include <vector>
 #include <memory>
+#include "SWektor.h"
 #include "SMacierz.h"
 #include "MObrotu.h"
-#include "Draw3D_api_interface.hh"
+#include "Rysuj_interfejs.h"
 /*!
  * \brief Definiuje klasę bryły w przestrzeni 3D.
  */
-class Bryla : public drawNS::Draw3DAPI{
+class Bryla : public Rysuj_interfejs {
 
-public:
+protected:
     /*!
     * \brief Punkt o współrzędnych x, y, z, środek bryły.
     */
     SWektor<double,ROZMIAR> srodek;
     /*!
-    * \brief Kąt opisujacy obrót bryLy względem osi OZ.
+    * \brief Macierz opisujaca orientację bryLy względem osi OZ.
     */
-    double orientacja;
+    MObrotu orientacja = MObrotu('z',0);
     /*!
-    * \brief Wskaźnik na api do Gnuplota.
+    * \brief Nazwa obiektu.
     */
-    std::shared_ptr<drawNS::Draw3DAPI> ptr_na_api;
+    uint id;
 
-protected:
+
+
+public:
+    /*!
+     * \brief Konstruktor
+     * \param ptrApi - wskaźnik na api.
+     * \param sr - punkt reprezentujacy srodek.
+     * \param orient - macierz obrotu reprezentujaca orientacje bryly.
+     * */
+    Bryla(std::shared_ptr<drawNS::Draw3DAPI> ptrApi, const SWektor<double, ROZMIAR> &sr) :
+    Rysuj_interfejs(ptrApi),  srodek(sr), id(0){} ;
+    /*!
+     * \brief Dekonstruktor wirtualny
+     * */
+    virtual  ~Bryla() {};
     /*!
     * \brief Obraca bryłę.
+    * \param kat - wartosc kata w stopniach o jaki ma zostac obrocona bryla wokol osi OZ.
     */
-    void Obroc();
+    virtual void Obroc(double kat) =0;
     /*!
     * \brief Przesuwa śrdodek bryły o dany wektor.
-     * \param Przesun - wektor przesunięcia.
+    * \param odleglosc - wektor przesunięcia.
     */
-    void Przesun(const SWektor<double,ROZMIAR> &Przesun);
-    // Bryla_rysuj();
+    virtual void Przesun(double odleglosc, double kat) =0;
+    /*!
+    * \brief Wirtyalna metoda rysujaca bryle.
+    * \param odleglosc - o jaka ma zostac przesuneta bryla.
+     * \param kat - kat opadania/wznoszenia.
+    */
+    //virtual void Rysuj() = 0;
+    void Wymaz() override {api->erase_shape(id); }
 };
 
 

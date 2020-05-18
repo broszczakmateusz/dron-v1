@@ -8,14 +8,22 @@
 #include <vector>
 #include "SMacierz.h"
 #include "Bryla.h"
+#include "Draw3D_api_interface.hh"
+#include "MObrotu.h"
 
 class Prostopadloscian : public Bryla {
 
 protected:
-    std::vector<SWektor<double,ROZMIAR>> Wierzcholki;
-    void Prostopadloscian_Obroc();
-    void Prostopadloscian_Przesun(const SWektor<double, 3> &Przesun);
-    // Prostopadloscian_Rysuj();
+    SWektor<double,ROZMIAR> Wierzcholki[8];
+    SWektor<double,ROZMIAR> PPrzod[4];
+
+
+public:
+    Prostopadloscian(std::shared_ptr<drawNS::Draw3DAPI> ptrApi, const SWektor<double, ROZMIAR> &sr);
+    void Rysuj() override;
+    void Obroc(double kat) override ;
+    void Przesun(double odleglosc, double kat) override ;
+
 };
 
 
