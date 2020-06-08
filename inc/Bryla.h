@@ -30,39 +30,66 @@ protected:
     */
     uint id;
 
-
-
 public:
+    /*!
+* \brief liczba wszytskich utworzonych bryl
+*/
+    static int Ile_wszystkich;
+    /*!
+    * \brief liczba aktualnie utworzonych bryl
+    */
+    static int Ile_istnieje;
+
+
+    /*!
+    * \brief metoda zwracajaca liczbae wszytskich utworzonych bryl
+    */
+    static int get_wszystkie() { return Bryla::Ile_wszystkich;}
+    /*!
+    * \brief metoda zwracajaca liczbae aktualnie utworzonych bryl
+    */
+    static int get_ist() { return Bryla::Ile_istnieje ;}
+    /*!
+     * \brief Konstruktor domyslny
+     * */
+    Bryla() : Rysuj_interfejs() {Bryla::Ile_wszystkich++, Bryla::Ile_istnieje++;}
+
     /*!
      * \brief Konstruktor
      * \param ptrApi - wskaźnik na api.
      * \param sr - punkt reprezentujacy srodek.
-     * \param orient - macierz obrotu reprezentujaca orientacje bryly.
      * */
     Bryla(std::shared_ptr<drawNS::Draw3DAPI> ptrApi, const SWektor<double, ROZMIAR> &sr) :
-    Rysuj_interfejs(ptrApi),  srodek(sr), id(0){} ;
+    Rysuj_interfejs(ptrApi),  srodek(sr), id(0) {Bryla::Ile_wszystkich++, Bryla::Ile_istnieje++;}
     /*!
-     * \brief Dekonstruktor wirtualny
+     * \brief Konstruktor kopiujacy
+     * \param B - kopiowana bryla
      * */
-    virtual  ~Bryla() {};
+    Bryla(const Bryla &B) : srodek(B.srodek), orientacja(B.orientacja), id(B.id) {Bryla::Ile_wszystkich++, Bryla::Ile_istnieje++;}
     /*!
-    * \brief Obraca bryłę.
+     * \brief Destruktor
+     * */
+    ~Bryla() {Bryla::Ile_istnieje--;}
+    /*!
+    * \brief Wirtualna metoda obracajaca bryłę.
     * \param kat - wartosc kata w stopniach o jaki ma zostac obrocona bryla wokol osi OZ.
     */
-    virtual void Obroc(double kat) =0;
+    virtual void Obroc(double kat) = 0;
     /*!
-    * \brief Przesuwa śrdodek bryły o dany wektor.
+    * \brief Wirtualna metoda przesuwajaca śrdodek bryły o dany wektor.
     * \param odleglosc - wektor przesunięcia.
+     * \param kat - zadany kat wznoszenia/opadania
     */
-    virtual void Przesun(double odleglosc, double kat) =0;
+    virtual void Przesun(double odleglosc, double kat) = 0;
     /*!
     * \brief Wirtyalna metoda rysujaca bryle.
-    * \param odleglosc - o jaka ma zostac przesuneta bryla.
-     * \param kat - kat opadania/wznoszenia.
     */
-    //virtual void Rysuj() = 0;
+    virtual void Rysuj() = 0;
+    /*!
+    * \brief Metoda wymazujaca bryle.
+    */
     void Wymaz() override {api->erase_shape(id); }
-};
 
+};
 
 #endif //DRON_V1_BRYLA_H

@@ -2,5 +2,5 @@
 #define ROZMIAR_H
 
 #define ROZMIAR   3
-
+#define SCENA 100
 #endif

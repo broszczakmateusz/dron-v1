@@ -29,5 +29,15 @@ void Woda::Wymaz() {
     api->erase_shape(id_woda);
 }
 
+bool Woda::czy_kolizja(const Dron_interfejs &D) const {
+    double tmp;
+    tmp = D.get_srodek()[2];
+    if ( tmp == PunktyPowierzchnii[0][2]) {
+        std::cout<< "Nastapilo wynurzenie ponad powierzchnie wody! Wstrzymano ruch.";
+        return true;
+    } else
+        return false;
+}
+
 
 

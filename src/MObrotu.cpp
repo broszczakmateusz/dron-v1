@@ -41,6 +41,9 @@ MObrotu::MObrotu(SMacierz<double, 3> MacObrotu) {
 }
 
 MObrotu::MObrotu(char os, double kat) {
+    double pi = 3.1415;
+    kat = (kat * pi) / 90 ;
+
     switch(os) {
         case 'x' : {
             SWektor<double, ROZMIAR> W1(1, 0, 0);

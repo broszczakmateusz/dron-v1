@@ -14,6 +14,7 @@ public:
     Dno(std::shared_ptr<drawNS::Draw3DAPI> ptrApi);
     void Rysuj() override;
     void Wymaz() override;
+    bool czy_kolizja(const Dron_interfejs &D) const override;
 };
 
 

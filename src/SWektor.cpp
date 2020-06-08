@@ -1,18 +1,47 @@
 #include "SWektor.h"
 
+template<class TYP, int Rozmiar>
+int SWektor<TYP,Rozmiar>::Ile_istnieje = 0;
+template<class TYP, int Rozmiar>
+int SWektor<TYP,Rozmiar>::Ile_wszystkich = 0;
+
 /* Konstruktory*/
+template<class TYP, int Rozmiar>
+SWektor<TYP, Rozmiar>::SWektor() {
+    for (TYP &i: dane) i = 0;
+    SWektor::Ile_wszystkich++;
+    SWektor::Ile_istnieje++;
+}
 template<class TYP, int Rozmiar>
 SWektor<TYP, Rozmiar>::SWektor(TYP x, TYP y, TYP z) {
 
     dane[0] = x;
     dane[1] = y;
     dane[2] = z;
+
+    SWektor::Ile_wszystkich++;
+    SWektor::Ile_istnieje++;
 }
 template <class TYP, int Rozmiar>
 SWektor<TYP, Rozmiar>::SWektor(TYP wspolrzedne[ROZMIAR]) {
     for (int i=0; i < ROZMIAR; i++) {
         dane[i] = wspolrzedne[i];
     }
+    SWektor::Ile_wszystkich++;
+    SWektor::Ile_istnieje++;
+}
+template<class TYP, int Rozmiar>
+SWektor<TYP, Rozmiar>::SWektor(const SWektor<TYP,Rozmiar> &W) {
+    for (int i=0; i < ROZMIAR; i++) {
+        dane[i] = W.dane[i];
+    }
+    SWektor::Ile_wszystkich++;
+    SWektor::Ile_istnieje++;
+}
+
+template<class TYP, int Rozmiar>
+SWektor<TYP, Rozmiar>::~SWektor() {
+    SWektor::Ile_istnieje--;
 }
 /*****************************************************************/
 /* Wczytuje tablice wartowsci double lub liczb zespolonych, tworzy z nich wektor.*/
@@ -113,6 +142,21 @@ SWektor<TYP, Rozmiar> SWektor<TYP, Rozmiar>::operator / (TYP liczba) {
         exit(1);
     }
 }
+
+template<class TYP, int Rozmiar>
+double SWektor<TYP, Rozmiar>::dlugosc() const{
+
+        double Wynik = 0;
+        for (int i = 0; i < ROZMIAR; i++)
+            Wynik = Wynik + dane[i] * dane[i];
+        return sqrt(Wynik);
+    }
+
+
+
+
+
+
 
 
 

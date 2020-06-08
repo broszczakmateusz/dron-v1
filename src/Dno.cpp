@@ -30,3 +30,13 @@ void Dno::Rysuj() {
 void Dno::Wymaz() {
     api->erase_shape(id_dno);
 }
+
+bool Dno::czy_kolizja(const Dron_interfejs &D) const {
+    double tmp;
+    tmp = D.get_srodek()[2] - D.get_r();
+    if ( tmp == PunktyPowierzchnii[0][2]) {
+        std::cout<< "Nastapila kolizja z dnem! Wstrzymano ruch.";
+        return true;
+    } else
+        return false;
+}

@@ -8,19 +8,37 @@
 #include "Draw3D_api_interface.hh"
 #include "Dr3D_gnuplot_api.hh"
 
+/*!
+ * \brief Abstrakcyjna klasa, interfejs rysowania
+ */
 class Rysuj_interfejs {
-
 public:
-
-    Rysuj_interfejs(std::shared_ptr<drawNS::Draw3DAPI> ptrApi): api(ptrApi) {}
-    virtual  ~Rysuj_interfejs() {};
-    virtual void Rysuj() = 0;
-    virtual void Wymaz() = 0;
-
 /*!
 * \brief Wskaźnik na api do Gnuplota.
 */
     std::shared_ptr<drawNS::Draw3DAPI> api;
+
+/*!
+ * \brief Konstruktor domyslny
+ */
+    Rysuj_interfejs() = default;
+/*!
+* \brief Konstruktor
+ * \param ptrApi - wskaznik na api do Gnuplota
+*/
+    Rysuj_interfejs(std::shared_ptr<drawNS::Draw3DAPI> ptrApi): api(ptrApi) {} ;
+/*!
+* \brief Wirtualny dekonstruktor
+*/
+   virtual  ~Rysuj_interfejs() = default;
+/*!
+* \brief wirtualna metoda rysujaca
+*/
+     virtual void Rysuj() = 0;
+/*!
+* \brief wirtualna metoda wymazujaca
+*/
+   virtual void Wymaz() = 0;
 };
 
 

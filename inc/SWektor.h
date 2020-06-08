@@ -18,9 +18,16 @@ class SWektor {
     TYP dane[ROZMIAR];
 
 public:
-    SWektor() { for (TYP &i: dane) i = 0; }
+    static int Ile_istnieje;
+    static int Ile_wszystkich;
+    static int get_wszystkie() { return SWektor::Ile_wszystkich;}
+    static int get_ist() { return SWektor::Ile_istnieje ;}
+
+    SWektor();
     SWektor(TYP x, TYP y, TYP z);
     explicit SWektor(TYP wspolrzedne[ROZMIAR]); //konstruktor od kolekcji
+    SWektor(const SWektor<TYP, Rozmiar>  & W) ;
+    ~SWektor();
 
     const TYP & operator[] (int indeks) const;
     TYP & operator[] (int indeks);
@@ -32,7 +39,9 @@ public:
     SWektor<TYP, Rozmiar>  operator * (TYP liczba) const;
     SWektor<TYP, Rozmiar>  operator / (TYP liczba) ;
 
+    double dlugosc () const;
     operator drawNS::Point3D(){ return drawNS::Point3D(dane[0],dane[1], dane[2]);}
+
 
 };
 /* Wczytuje tablice wartowsci double lub liczb zespolonych, tworzy z nich wektor.*/
